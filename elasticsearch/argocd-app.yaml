@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: elasticsearch-eck
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/JulienDanh/argo-resharding.git"
+    targetRevision: HEAD
+    path: elasticsearch
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: elastic-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

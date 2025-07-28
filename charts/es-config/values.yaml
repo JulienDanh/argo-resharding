@@ -1,21 +1,7 @@
 clusters:
-  - name: first-cluster
-    configName: first-cluster.json
-  - name: second-cluster
-    configName: second-cluster.json
-  - name: third-cluster
-    configName: third-cluster.json
-  - name: fourth-cluster
-    configName: fourth-cluster.json
-  - name: fifth-cluster
-    configName: fifth-cluster.json
-  - name: sixth-cluster
-    configName: sixth-cluster.json
-  - name: seventh-cluster
-    configName: seventh-cluster.json
-  - name: eighth-cluster
-    configName: eighth-cluster.json
-  - name: ninth-cluster
-    configName: ninth-cluster.json
-  - name: tenth-cluster
-    configName: tenth-cluster.json
+  - name: cell-00001
+    configName: cell-00001.json
+  - name: cell-00002
+    configName: cell-00002.json
+  - name: cell-00003
+    configName: cell-00003.json

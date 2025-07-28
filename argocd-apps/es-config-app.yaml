@@ -2,24 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: elasticsearch-eck
+  name: es-config-app
   namespace: argocd
 spec:
   project: default
   source:
     helm:
-      releaseName: elasticsearch-release
-      values: |
-        clusters:
-          - my-es-cluster
-          - my-other-cluster
+      releaseName: es-cnofig-app-release
     repoURL: "https://github.com/JulienDanh/argo-resharding.git"
     targetRevision: HEAD
-    path: elasticsearch-helm
-    name: Elastic search helm
+    path: charts/es-config
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: elastic-system
+    namespace: config-app
   syncPolicy:
     automated:
       prune: true

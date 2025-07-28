@@ -1,0 +1,12 @@
+{{- range .Values.clusters }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-config
+data:
+  config.json: |
+    {
+      "key": "value",
+      "another_key": 123
+    }
+{{- end }}

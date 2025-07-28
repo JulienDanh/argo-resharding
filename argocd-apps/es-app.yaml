@@ -1,17 +1,20 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: es-config-app
+  name: es-app
   namespace: argocd
 spec:
   project: default
   source:
+    helm:
+      releaseName: elasticsearch-release
     repoURL: "https://github.com/JulienDanh/argo-resharding.git"
     targetRevision: HEAD
-    path: es-config-app
+    path: charts/elasticsearch
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: config-app
+    namespace: elastic-system
   syncPolicy:
     automated:
       prune: true

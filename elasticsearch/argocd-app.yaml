@@ -7,7 +7,6 @@ metadata:
 spec:
   project: default
   source:
-    chart: elasticsearch-helm
     helm:
       releaseName: elasticsearch-release
       values: |

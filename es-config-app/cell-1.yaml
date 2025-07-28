@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cell-1
+  namespace: es-config
+  labels:
+    app: my-app
+data:
+  example.property.1: value1
+  example.property.2: value2

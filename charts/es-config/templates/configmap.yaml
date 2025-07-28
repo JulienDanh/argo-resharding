@@ -9,4 +9,5 @@ data:
       "key": "{{ .name }}",
       "another_key": 123
     }
+---
 {{- end }}

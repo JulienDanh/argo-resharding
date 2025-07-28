@@ -1,12 +1,12 @@
-{{- range .Values.clusters }}
+{{- range $i, $c := .Values.clusters }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ . }}
+  name: {{ printf "%s-%d" $c $i }}
 data:
   config.json: |
     {
-      "key": {{ . }},
+      "key": {{ $c }},
       "another_key": 123
     }
 {{- end }}

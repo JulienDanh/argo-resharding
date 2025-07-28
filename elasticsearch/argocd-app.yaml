@@ -8,6 +8,8 @@ spec:
   project: default
   source:
     chart: elasticsearch-helm
+    helm:
+      releaseName: elasticsearch-release
     repoURL: "https://github.com/JulienDanh/argo-resharding.git"
     targetRevision: HEAD
     path: elasticsearch-helm

@@ -1,8 +1,7 @@
----
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: first-cluster
+  name: second-cluster
 spec:
   version: 8.13.4
   nodeSets:
@@ -10,13 +9,3 @@ spec:
       count: 2
       config:
         node.store.allow_mmap: false
----
-apiVersion: kibana.k8s.elastic.co/v1
-kind: Kibana
-metadata:
-  name: quickstart-kibana
-spec:
-  version: 8.13.4
-  count: 1
-  elasticsearchRef:
-    name: quickstart

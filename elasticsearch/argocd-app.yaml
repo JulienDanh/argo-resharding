@@ -10,6 +10,10 @@ spec:
     chart: elasticsearch-helm
     helm:
       releaseName: elasticsearch-release
+      values: |
+        clusters:
+          - my-es-cluster
+          - my-other-cluster
     repoURL: "https://github.com/JulienDanh/argo-resharding.git"
     targetRevision: HEAD
     path: elasticsearch-helm

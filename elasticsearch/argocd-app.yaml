@@ -11,6 +11,7 @@ spec:
     repoURL: "https://github.com/JulienDanh/argo-resharding.git"
     targetRevision: HEAD
     path: elasticsearch-helm
+    name: Elastic search helm
   destination:
     server: "https://kubernetes.default.svc"
     namespace: elastic-system

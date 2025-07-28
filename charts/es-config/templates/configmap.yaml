@@ -6,7 +6,7 @@ metadata:
 data:
   config.json: |
     {
-      "key": "value",
+      "key": {{ . }},
       "another_key": 123
     }
 {{- end }}

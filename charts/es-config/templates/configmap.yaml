@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ . }}
+  name: {{ .name }}
 data:
-  config.json: |
+  {{ .configName }}: |
     {
-      "key": {{ . }},
+      "key": "{{ .name }}",
       "another_key": 123
     }
 {{- end }}

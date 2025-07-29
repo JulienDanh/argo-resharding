@@ -3,7 +3,7 @@ apiVersion: front.search.com/v1
 kind: Resharding
 metadata:
   name: {{ .name }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ $.Values.namespace }}
 spec:
   sourceIndex: {{ .sourceIndex }}
   targetIndex: {{ .targetIndex }}

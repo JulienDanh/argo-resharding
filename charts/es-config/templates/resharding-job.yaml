@@ -8,13 +8,13 @@ spec:
     metadata:
       labels:
         name: {{ .name }}
-        namespace: {{ $.Values.namespace }}
+        namespace: {{ $.namespace }}
     spec:
       restartPolicy: OnFailure
       containers:
         - name: resharding
           image: busybox 
-          command: ["sh", "-c", "echo 'Performing resharding from {{ .Values.sourceIndex }} to {{ .Values.targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
+          command: ["sh", "-c", "echo 'Performing resharding from {{ .sourceIndex }} to {{ .targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
           env:
             - name: SOURCE_INDEX
               value: "{{ .sourceIndex }}"

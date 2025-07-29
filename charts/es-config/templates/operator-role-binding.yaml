@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: operator-rolebinding
+  namespace: {{ .Values.namespace }}
+subjects:
+- kind: ServiceAccount
+  name: operator-sa
+  namespace: default # Must be the same namespace as the ServiceAccount
+roleRef:
+  kind: Role
+  name: my-operator-role
+  apiGroup: rbac.authorization.k8s.io

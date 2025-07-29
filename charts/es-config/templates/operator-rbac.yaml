@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   name: es-config-resharding-operator
 rules:
-  - apiGroups: ["elasticsearch.example.com"]
+  - apiGroups: ["front.search.com"]
     resources: ["reshardings"]
     verbs: ["get", "list", "watch", "patch", "update"]
 ---
@@ -14,7 +14,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: default
-    namespace: es-config
+    namespace: {{ .Values.namespace }}
 roleRef:
   kind: ClusterRole
   name: es-config-resharding-operator

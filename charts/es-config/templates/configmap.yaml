@@ -3,12 +3,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .name }}
-  namespace: es-config
+  namespace: {{ .Values.namespace }}
 data:
   {{ .configName }}: |
     {
       "key": "{{ .name }}",
-      "another_key": 123
     }
 ---
 {{- end }}

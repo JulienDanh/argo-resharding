@@ -1,9 +1,9 @@
 {{- range .Values.reshardings }}
-apiVersion: elasticsearch.example.com/v1
+apiVersion: front.search.com/v1
 kind: Resharding
 metadata:
   name: {{ .name }}
-  namespace: es-config
+  namespace: {{ .Values.namespace }}
 spec:
   sourceIndex: {{ .sourceIndex }}
   targetIndex: {{ .targetIndex }}

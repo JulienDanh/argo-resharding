@@ -22,3 +22,5 @@ reshardings:
     targetIndex: cell-00003.activities-no_routing
     status: NOT_STARTED
     step: CLEANING
+
+namespace: es-config

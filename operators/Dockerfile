@@ -1,5 +1,5 @@
 FROM python:3.13-slim
 WORKDIR /app
-COPY operator.py /app/operator.py
+COPY es-operator.py /app/es-operator.py
 RUN pip install kubernetes
-CMD ["python", "-u", "operator.py"] 
+CMD ["python", "-u", "es-operator.py"] 

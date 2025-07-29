@@ -7,7 +7,7 @@ clusters:
     configName: cell-00003.json
 
 reshardings:
-  - name: cell-00001.conversations_pages
+  - name: c1.conversations_pages
     sourceIndex: cell-00001.conversations_pages
     targetIndex: cell-00001.conversations_pages-no_routing
     status: NOT_STARTED

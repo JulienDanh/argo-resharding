@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: es-config-resharding-operator
+  namespace: es-config
+rules:
+  - apiGroups: ["elasticsearch.example.com"]
+    resources: ["reshardings"]
+    verbs: ["get", "list", "watch", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: es-config-resharding-operator
+  namespace: es-config
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: es-config
+roleRef:
+  kind: Role
+  name: es-config-resharding-operator
+  apiGroup: rbac.authorization.k8s.io 

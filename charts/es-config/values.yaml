@@ -10,17 +10,14 @@ reshardings:
   - name: cell-00001
     sourceIndex: cell-00001.conversations_pages
     targetIndex: cell-00001.conversations_pages-no_routing
-    status: NOT_STARTED
     step: ALIAS_SWAP
   - name: cell-00002
     sourceIndex: cell-00002.activities
     targetIndex: cell-00002.activities-no_routing
-    status: NOT_STARTED
     step: ALIAS_SWAP
   - name: cell-00003
     sourceIndex: cell-00003.activities
     targetIndex: cell-00003.activities-no_routing
-    status: NOT_STARTED
     step: CLEANING
 
 namespace: es-config

@@ -28,6 +28,7 @@ spec:
                   type: string
                 status:
                   type: string
+                  default: NOT_STARTED
                   enum:
                     - NOT_STARTED
                     - STARTED
@@ -41,7 +42,6 @@ spec:
               required:
                 - sourceIndex
                 - targetIndex
-                - status
                 - step
       additionalPrinterColumns:
         - name: Status

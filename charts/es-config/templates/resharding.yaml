@@ -7,7 +7,6 @@ metadata:
 spec:
   sourceIndex: {{ .sourceIndex }}
   targetIndex: {{ .targetIndex }}
-  status: {{ .status }}
   step: {{ .step }}
 ---
 {{- end }}

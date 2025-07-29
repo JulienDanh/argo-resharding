@@ -1,8 +1,8 @@
 apiVersion: elasticsearch.example.com/v1
 kind: Resharding
 metadata:
-  name: {{ include "es-config.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  name: resharding
+  namespace: es-config
 spec:
   sourceIndex: "sourceIndex"
   targetIndex: "targetIndex"

@@ -1,21 +1,12 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
-  name: es-config-resharding-operator
+  name: operator-role
+  namespace: {{ .Values.namespace }} 
 rules:
-  - apiGroups: ["front.search.com"]
-    resources: ["reshardings"]
-    verbs: ["get", "list", "watch", "patch", "update"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: es-config-resharding-operator
-subjects:
-  - kind: ServiceAccount
-    name: default
-    namespace: {{ .Values.namespace }}
-roleRef:
-  kind: ClusterRole
-  name: es-config-resharding-operator
-  apiGroup: rbac.authorization.k8s.io 
+- apiGroups: ["front.search.com"]
+  resources: ["reshardings"] # Plural name of your custom resource
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""] # For core Kubernetes resources like Pods, Services, etc.
+  resources: ["pods", "services"] # Example: if your operator also manages pods or services
+  verbs: ["get", "list", "watch"]

@@ -1,0 +1,11 @@
+apiVersion: 
+apiVersion: elasticsearch.example.com/v1
+kind: Resharding
+metadata:
+  name: {{ include "es-config.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  sourceIndex: {{ .Values.resharding.sourceIndex | quote }}
+  targetIndex: {{ .Values.resharding.targetIndex | quote }}
+  status: {{ .Values.resharding.status | quote }}
+  step: {{ .Values.resharding.step | quote }}

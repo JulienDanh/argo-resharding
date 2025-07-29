@@ -5,3 +5,9 @@ clusters:
     configName: cell-00002.json
   - name: cell-00003
     configName: cell-00003.json
+
+resharding:
+  sourceIndex: "my-source-index"
+  targetIndex: "my-target-index"
+  status: "NOT_STARTED" # Allowed: NOT_STARTED, STARTED, DONE
+  step: "REINDEXING" # Allowed: REINDEXING, ALIAS_SWAP, CLEANING

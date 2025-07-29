@@ -5,8 +5,8 @@ import kubernetes
 kubernetes.config.load_incluster_config()
 
 
-@kopf.on.update("front.search.com", "v1", "reshardings")
-@kopf.on.create("front.search.com", "v1", "reshardings")
+@kopf.on.update("front.search.com", "v1", "reshardings", namespace="es-config")
+@kopf.on.create("front.search.com", "v1", "reshardings", namespace="es-config")
 def resharding_handler(spec, name, namespace, status, **kwargs):
     api = kubernetes.client.CustomObjectsApi()
     # Set status to DONE if not already

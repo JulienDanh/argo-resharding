@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: es-config-resharding-operator
+  namespace: es-config
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: es-config-resharding-operator
+  template:
+    metadata:
+      labels:
+        app: es-config-resharding-operator
+    spec:
+      serviceAccountName: default
+      containers:
+        - name: operator
+          image: operator:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace 

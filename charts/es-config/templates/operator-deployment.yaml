@@ -13,7 +13,7 @@ spec:
       labels:
         app: es-config-resharding-operator
     spec:
-      serviceAccountName: default
+      serviceAccountName: {{ .Values.operatorServiceAccount }}
       containers:
         - name: operator
           image: operator:latest

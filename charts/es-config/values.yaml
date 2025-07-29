@@ -25,3 +25,7 @@ reshardings:
 
 namespace: es-config
 apiGroup: front.search.com
+
+# Operator
+operatorRole: operator-role
+operatorServiceAccount: operator-sa

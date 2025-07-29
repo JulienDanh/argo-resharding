@@ -6,7 +6,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: operator-sa
-  namespace: default # Must be the same namespace as the ServiceAccount
+  namespace: {{ .Values.namespace }}
 roleRef:
   kind: Role
   name: my-operator-role

@@ -1,24 +1,37 @@
-import kopf
+import time
 import kubernetes
 
 # Ensure the Kubernetes client is configured
 kubernetes.config.load_incluster_config()
 
+NAMESPACE = "es-config"
+GROUP = "front.search.com"
+VERSION = "v1"
+PLURAL = "reshardings"
 
-@kopf.on.update("front.search.com", "v1", "reshardings", namespace="es-config")
-@kopf.on.create("front.search.com", "v1", "reshardings", namespace="es-config")
-def resharding_handler(spec, name, namespace, status, **kwargs):
-    api = kubernetes.client.CustomObjectsApi()
-    # Set status to DONE if not already
-    if spec.get("status") != "DONE":
-        body = {"spec": dict(spec)}
-        body["spec"]["status"] = "DONE"
-        api.patch_namespaced_custom_object(
-            group="elasticsearch.example.com",
-            version="v1",
-            namespace=namespace,
-            plural="reshardings",
-            name=name,
-            body=body,
+api = kubernetes.client.CustomObjectsApi()
+
+while True:
+    try:
+        reshardings = api.list_namespaced_custom_object(
+            group=GROUP, version=VERSION, namespace=NAMESPACE, plural=PLURAL
         )
-        kopf.info({"name": name}, reason="StatusUpdate", message="Status set to DONE")
+        print(reshardings)
+        for item in reshardings.get("items", []):
+            name = item["metadata"]["name"]
+            spec = item.get("spec", {})
+            if spec.get("status") != "DONE":
+                body = {"spec": dict(spec)}
+                body["spec"]["status"] = "DONE"
+                api.patch_namespaced_custom_object(
+                    group=GROUP,
+                    version=VERSION,
+                    namespace=NAMESPACE,
+                    plural=PLURAL,
+                    name=name,
+                    body=body,
+                )
+                print(f"Set status to DONE for {name}")
+    except Exception as e:
+        print(f"Error: {e}")
+    time.sleep(10)

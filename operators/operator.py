@@ -1,7 +1,6 @@
 import time
 import kubernetes
 
-# Ensure the Kubernetes client is configured
 kubernetes.config.load_incluster_config()
 
 NAMESPACE = "es-config"

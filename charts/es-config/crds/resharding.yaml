@@ -43,3 +43,20 @@ spec:
                 - targetIndex
                 - status
                 - step
+      additionalPrinterColumns:
+        - name: Status
+          type: string
+          description: Current status of the resharding
+          jsonPath: .spec.status
+        - name: Step
+          type: string
+          description: Current step of the resharding
+          jsonPath: .spec.step
+        - name: SourceIndex
+          type: string
+          description: Source index name
+          jsonPath: .spec.sourceIndex
+        - name: TargetIndex
+          type: string
+          description: Target index name
+          jsonPath: .spec.targetIndex

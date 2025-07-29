@@ -6,8 +6,19 @@ clusters:
   - name: cell-00003
     configName: cell-00003.json
 
-resharding:
-  sourceIndex: "my-source-index"
-  targetIndex: "my-target-index"
-  status: "NOT_STARTED" # Allowed: NOT_STARTED, STARTED, DONE
-  step: "REINDEXING" # Allowed: REINDEXING, ALIAS_SWAP, CLEANING
+reshardings:
+  - name: cell-00001.conversations_pages
+    sourceIndex: cell-00001.conversations_pages
+    targetIndex: cell-00001.conversations_pages-no_routing
+    status: NOT_STARTED
+    step: REINDEXING
+  - name: cell-00002.activities
+    sourceIndex: cell-00002.activities
+    targetIndex: cell-00002.activities-no_routing
+    status: NOT_STARTED
+    step: ALIAS_SWAP
+  - name: cell-00003.activities
+    sourceIndex: cell-00003.activities
+    targetIndex: cell-00003.activities-no_routing
+    status: NOT_STARTED
+    step: CLEANING

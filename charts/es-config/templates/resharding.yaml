@@ -1,10 +1,13 @@
+{{- range .Values.reshardings }}
 apiVersion: elasticsearch.example.com/v1
 kind: Resharding
 metadata:
-  name: resharding
+  name: {{ .name }}
   namespace: es-config
 spec:
-  sourceIndex: "sourceIndex"
-  targetIndex: "targetIndex"
-  status: "NOT_STARTED"
-  step: "REINDEXING"
+  sourceIndex: {{ .sourceIndex }}
+  targetIndex: {{ .targetIndex }}
+  status: {{ .status }}
+  step: {{ .step }}
+---
+{{- end }}

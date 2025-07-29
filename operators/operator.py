@@ -5,8 +5,8 @@ import kubernetes
 kubernetes.config.load_incluster_config()
 
 
-@kopf.on.update("elasticsearch.example.com", "v1", "reshardings")
-@kopf.on.create("elasticsearch.example.com", "v1", "reshardings")
+@kopf.on.update("front.search.com", "v1", "reshardings")
+@kopf.on.create("front.search.com", "v1", "reshardings")
 def resharding_handler(spec, name, namespace, status, **kwargs):
     api = kubernetes.client.CustomObjectsApi()
     # Set status to DONE if not already
@@ -22,4 +22,3 @@ def resharding_handler(spec, name, namespace, status, **kwargs):
             body=body,
         )
         kopf.info({"name": name}, reason="StatusUpdate", message="Status set to DONE")
-

@@ -14,7 +14,13 @@ spec:
       containers:
         - name: resharding
           image: busybox 
+          {{- if eq .step "REINDEXING" }}
           command: ["sh", "-c", "echo 'Performing resharding from {{ .sourceIndex }} to {{ .targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
+          {{- else if eq .step "ALIAS_SWAP" }}
+          command: ["sh", "-c", "echo 'Performing alias swap from {{ .sourceIndex }} to {{ .targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
+          {{- else if eq .step "CLEANUP" }}
+          command: ["sh", "-c", "echo 'Performing cleanup from {{ .sourceIndex }} to {{ .targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
+          {{- end}}
           env:
             - name: SOURCE_INDEX
               value: "{{ .sourceIndex }}"

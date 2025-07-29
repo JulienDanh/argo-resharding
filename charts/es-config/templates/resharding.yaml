@@ -1,5 +1,5 @@
 {{- range .Values.reshardings }}
-apiVersion: front.search.com/v1
+apiVersion: {{ $.Values.apiGroup }}/v1
 kind: Resharding
 metadata:
   name: {{ .name }}

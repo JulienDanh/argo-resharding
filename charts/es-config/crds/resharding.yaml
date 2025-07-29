@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   name: reshardings.elasticsearch.example.com
 spec:
-  group: elasticsearch.example.com
+  group: front.search.com
   names:
     kind: Resharding
     plural: reshardings

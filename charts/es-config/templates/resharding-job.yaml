@@ -16,8 +16,7 @@
             image: busybox 
   {{- if eq .step "REINDEXING" }}
             command: ["sh", "-c", "echo 'Performing reindexing from {{ .sourceIndex }} to {{ .targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
-  {{- end }}
-  {{- if eq .step "ALIAS_SWAP" }}
+  {{- else if eq .step "ALIAS_SWAP" }}
             command: ["sh", "-c", "echo 'Performing alias swap from {{ .sourceIndex }} to {{ .targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
   {{- end }}
 

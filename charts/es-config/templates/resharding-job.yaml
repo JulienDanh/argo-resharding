@@ -1,0 +1,25 @@
+{{- range .Values.reshardings }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .name }}-job
+spec:
+  template:
+    metadata:
+      labels:
+        name: {{ .name }}
+        namespace: {{ $.Values.namespace }}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: resharding
+          image: busybox 
+          command: ["sh", "-c", "echo 'Performing resharding from {{ .Values.sourceIndex }} to {{ .Values.targetIndex }}...'; sleep 10; echo 'Resharding done.'"]
+          env:
+            - name: SOURCE_INDEX
+              value: "{{ .sourceIndex }}"
+            - name: TARGET_INDEX
+              value: "{{ .targetIndex }}"
+  backoffLimit: 4
+---
+{{- end }}

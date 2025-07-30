@@ -104,7 +104,7 @@ async function main(): Promise<void> {
             case "REINDEXING":
               console.log(`Status is REINDEXING for ${name}`);
               await sleep(1000);
-              await updateStatus(name, spec, "SWAP_READING");
+              await updateStatus(name, spec, "READ_SWAPPED");
               break;
             case "READ_SWAPPED":
               console.log(`Status is SWAP_READING for ${name}`);

@@ -1,11 +1,3 @@
-clusters:
-  - name: cell-00001
-    configName: cell-00001.json
-  - name: cell-00002
-    configName: cell-00002.json
-  - name: cell-00003
-    configName: cell-00003.json
-
 reshardings:
   - name: cell-00001
     sourceIndex: cell-00001.conversations_pages

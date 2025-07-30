@@ -8,6 +8,12 @@ reshardings:
   - name: cell-00003
     sourceIndex: cell-00003.activities
     targetIndex: cell-00003.activities-no_routing
+  - name: cell-00004
+    sourceIndex: cell-00003.activities
+    targetIndex: cell-00003.activities-no_routing
+  - name: cell-00005
+    sourceIndex: cell-00003.activities
+    targetIndex: cell-00003.activities-no_routing
 
 namespace: es-config
 apiGroup: front.search.com

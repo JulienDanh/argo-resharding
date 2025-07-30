@@ -32,6 +32,7 @@ conversations_pages:
     number_of_shards: 3
     refresh_interval: 30s
   mappings:
+    dynamic: strict
     properties:
       message:
         type: text
@@ -39,4 +40,3 @@ conversations_pages:
         type: date
       user_id:
         type: keyword
-    dynamic: strict

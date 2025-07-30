@@ -1,5 +1,17 @@
-FROM python:3.13-slim
+FROM node:18-alpine
 WORKDIR /app
-COPY es-operator.py /app/es-operator.py
-RUN pip install kubernetes
-CMD ["python", "-u", "es-operator.py"] 
+
+# Copy package files first for better caching
+COPY package*.json ./
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Build the TypeScript code
+RUN npm run build
+
+# Expose port if needed
+EXPOSE 3000
+
+CMD ["node", "dist/es-operator.js"] 

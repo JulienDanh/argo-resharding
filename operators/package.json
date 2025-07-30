@@ -1,0 +1,19 @@
+{
+  "name": "es-operator-ts",
+  "version": "1.0.0",
+  "description": "TypeScript Elasticsearch Resharding Operator",
+  "main": "dist/es-operator.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/es-operator.js",
+    "dev": "ts-node src/es-operator.ts"
+  },
+  "dependencies": {
+    "@kubernetes/client-node": "^0.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  }
+} 

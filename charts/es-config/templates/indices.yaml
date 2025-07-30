@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $.env }}-{{ . }}-indices
+  name: {{ $.Values.env }}-{{ . }}-indices
   namespace: {{ $.Values.namespace }}
 data:
-  {{ $.env }}-{{ . }}-conversations_pages02: | 
+  {{ $.Values.env }}-{{ . }}-conversations_pages02: | 
     {{ toJson $.Values.conversations_pages }}
 ---
 {{- end }}

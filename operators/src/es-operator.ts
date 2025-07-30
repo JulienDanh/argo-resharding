@@ -80,53 +80,50 @@ async function main(): Promise<void> {
         PLURAL,
       )) as { body: ReshardingList };
 
-      for (const item of reshardings.body.items) {
-        const name = item.metadata.name;
-        const spec = item.spec || {};
-        const sourceIndex = spec.sourceIndex;
-        const targetIndex = spec.targetIndex;
+      await Promise.all(
+        reshardings.body.items.map(async (item) => {
+          const name = item.metadata.name;
+          const spec = item.spec || {};
 
-        if (sourceIndex && targetIndex) {
-          await reshard(sourceIndex, targetIndex);
-        }
-        switch (spec.step) {
-          case "PENDING":
-            console.log(`Status is PENDING for ${name}`);
-            await sleep(1000);
-            await updateStatus(name, spec, "CREATING_INDEX");
-            break;
-          case "CREATING_INDEX":
-            console.log(`Status is CREATING_INDEX for ${name}`);
-            await sleep(1000);
-            await updateStatus(name, spec, "ENABLE_DW");
-            break;
-          case "ENABLE_DW":
-            console.log(`Status is ENABLE_DW for ${name}`);
-            await sleep(1000);
-            await updateStatus(name, spec, "REINDEXING");
-            break;
-          case "REINDEXING":
-            console.log(`Status is REINDEXING for ${name}`);
-            await sleep(1000);
-            await updateStatus(name, spec, "SWAP_READING");
-            break;
-          case "SWAP_READING":
-            console.log(`Status is SWAP_READING for ${name}`);
-            await sleep(1000);
-            await updateStatus(name, spec, "CLEANUP");
-            break;
-          case "CLEANUP":
-            console.log(`Status is CLEANUP for ${name}`);
-            await sleep(1000);
-            // Final state - no further status update needed
-            break;
-          default:
-            console.log(`Unknown status: ${spec.step} for ${name}`);
-            await sleep(1000);
-            await updateStatus(name, spec, "PENDING");
-            break;
-        }
-      }
+          switch (spec.step) {
+            case "PENDING":
+              console.log(`Status is PENDING for ${name}`);
+              await sleep(1000);
+              await updateStatus(name, spec, "CREATING_INDEX");
+              break;
+            case "CREATING_INDEX":
+              console.log(`Status is CREATING_INDEX for ${name}`);
+              await sleep(1000);
+              await updateStatus(name, spec, "ENABLE_DW");
+              break;
+            case "ENABLE_DW":
+              console.log(`Status is ENABLE_DW for ${name}`);
+              await sleep(1000);
+              await updateStatus(name, spec, "REINDEXING");
+              break;
+            case "REINDEXING":
+              console.log(`Status is REINDEXING for ${name}`);
+              await sleep(1000);
+              await updateStatus(name, spec, "SWAP_READING");
+              break;
+            case "READ_SWAPPED":
+              console.log(`Status is SWAP_READING for ${name}`);
+              await sleep(1000);
+              await updateStatus(name, spec, "CLEANUP");
+              break;
+            case "CLEANUP":
+              console.log(`Status is CLEANUP for ${name}`);
+              await sleep(1000);
+              // Final state - no further status update needed
+              break;
+            default:
+              console.log(`Unknown status: ${spec.step} for ${name}`);
+              await sleep(1000);
+              await updateStatus(name, spec, "PENDING");
+              break;
+          }
+        }),
+      );
     } catch (error) {
       console.error(`Error: ${error}`);
     }

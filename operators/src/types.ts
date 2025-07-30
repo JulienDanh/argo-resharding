@@ -6,6 +6,6 @@ export interface ReshardingSpec {
     | "CREATING_INDEX"
     | "ENABLE_DW"
     | "REINDEXING"
-    | "SWAP_READING"
+    | "READ_SWAPPED"
     | "CLEANUP";
 }

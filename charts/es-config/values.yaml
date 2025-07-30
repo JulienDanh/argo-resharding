@@ -27,6 +27,14 @@ apiGroup: front.search.com
 operatorRole: operator-role
 operatorServiceAccount: operator-sa
 
+cells:
+  - cell-00001
+  - cell-00002
+  - cell-00003
+
+env: prod
+
+# Default values
 conversations_pages:
   index:
     number_of_shards: 3

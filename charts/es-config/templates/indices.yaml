@@ -1,11 +1,11 @@
-{{- range .Values.clusters }}
+{{- range .Values.cells }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .name }}
   namespace: {{ $.Values.namespace }}
 data:
-  {{ .configName }}: | 
+  {{ $.env }}-{{ . }}-conversations_pages02: | 
     {{ toJson $.Values.conversations_pages }}
 ---
 {{- end }}

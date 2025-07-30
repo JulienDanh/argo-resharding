@@ -5,6 +5,7 @@ metadata:
   name: {{ .name }}
   namespace: {{ $.Values.namespace }}
 data:
-  {{ .configName }}: {{ toJson $.Values.conversations_pages }}
+  {{ .configName }}: | 
+    {{ toJson $.Values.conversations_pages }}
 ---
 {{- end }}

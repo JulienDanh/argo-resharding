@@ -51,7 +51,7 @@ async function updateStatus(
   const body = {
     spec: {
       ...spec,
-      status: newStatus,
+      step: newStatus,
     },
   };
 

@@ -26,28 +26,21 @@ spec:
                   type: string
                 targetIndex:
                   type: string
-                status:
-                  type: string
-                  default: NOT_STARTED
-                  enum:
-                    - NOT_STARTED
-                    - STARTED
-                    - DONE
                 step:
                   type: string
                   enum:
+                    - PENDING
+                    - CREATING_INDEX
+                    - ENABLE_DW
                     - REINDEXING
-                    - ALIAS_SWAP
-                    - CLEANING
+                    - READ_SWAPPED
+                    - CLEANUP
+                    - DONE
+                  default: PENDING
               required:
                 - sourceIndex
                 - targetIndex
-                - step
       additionalPrinterColumns:
-        - name: Status
-          type: string
-          description: Current status of the resharding
-          jsonPath: .spec.status
         - name: Step
           type: string
           description: Current step of the resharding

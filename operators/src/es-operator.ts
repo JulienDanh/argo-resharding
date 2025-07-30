@@ -46,7 +46,7 @@ async function createNewIndex(
 async function updateStatus(
   name: string,
   spec: ReshardingSpec,
-  newStatus: string
+  newStatus: string,
 ): Promise<void> {
   const body = {
     spec: {
@@ -89,7 +89,7 @@ async function main(): Promise<void> {
         if (sourceIndex && targetIndex) {
           await reshard(sourceIndex, targetIndex);
         }
-        switch (spec.status) {
+        switch (spec.step) {
           case "PENDING":
             console.log(`Status is PENDING for ${name}`);
             await sleep(1000);
@@ -121,7 +121,7 @@ async function main(): Promise<void> {
             // Final state - no further status update needed
             break;
           default:
-            console.log(`Unknown status: ${spec.status} for ${name}`);
+            console.log(`Unknown status: ${spec.step} for ${name}`);
             await sleep(1000);
             await updateStatus(name, spec, "PENDING");
             break;

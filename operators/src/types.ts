@@ -1,7 +1,7 @@
 export interface ReshardingSpec {
   sourceIndex?: string;
   targetIndex?: string;
-  status?:
+  step?:
     | "PENDING"
     | "CREATING_INDEX"
     | "ENABLE_DW"

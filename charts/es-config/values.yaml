@@ -26,3 +26,17 @@ apiGroup: front.search.com
 # Operator
 operatorRole: operator-role
 operatorServiceAccount: operator-sa
+
+conversations_pages:
+  index:
+    number_of_shards: 3
+    refresh_interval: 30s
+  mappings:
+    properties:
+      message:
+        type: text
+      timestamp:
+        type: date
+      user_id:
+        type: keyword
+    dynamic: strict

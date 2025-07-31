@@ -106,25 +106,26 @@ async function main(): Promise<void> {
               await handlePending(name, spec, jobsApi, updateStatus);
               break;
             case "CREATING_INDEX":
-              await handleCreatingIndex(name, spec, updateStatus);
+              await handleCreatingIndex(name, spec, jobsApi, updateStatus);
               break;
             case "ENABLE_DW":
-              await handleEnableDw(name, spec, updateStatus);
+              await handleEnableDw(name, spec, jobsApi, updateStatus);
               break;
             case "REINDEXING":
-              await handleReindexing(name, spec, updateStatus);
+              await handleReindexing(name, spec, jobsApi, updateStatus);
               break;
             case "READ_SWAPPED":
-              await handleReadSwapped(name, spec, updateStatus);
+              await handleReadSwapped(name, spec, jobsApi, updateStatus);
               break;
             case "CLEANUP":
-              await handleCleanup(name, spec);
+              await handleCleanup(name, spec, jobsApi);
               break;
             default:
               await handleUnknownStatus(
                 name,
                 spec,
                 spec.step || "undefined",
+                jobsApi,
                 updateStatus,
               );
               break;

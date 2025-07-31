@@ -14,6 +14,9 @@ reshardings:
   - name: cell-00005
     sourceIndex: cell-00003.activities
     targetIndex: cell-00003.activities-no_routing
+  - name: my-resharding
+    sourceIndex: cell-00001.conversations_pages
+    targetIndex: cell-00001.conversations_pages-no_routing
 
 namespace: es-config
 apiGroup: front.search.com

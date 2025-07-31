@@ -27,6 +27,14 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function randomSleep(
+  minMs: number = 1000,
+  maxMs: number = 10000,
+): Promise<void> {
+  const sleepMs = Math.floor(Math.random() * (maxMs - minMs + 1)) + minMs;
+  return sleep(sleepMs);
+}
+
 async function reshard(
   sourceIndex: string,
   targetIndex: string,
@@ -86,26 +94,30 @@ async function main(): Promise<void> {
           const spec = item.spec || {};
 
           switch (spec.step) {
-            case "PENDING":
+            case "PENDING": {
               console.log(`Status is PENDING for ${name}`);
-              await sleep(1000);
+              await randomSleep();
               await updateStatus(name, spec, "CREATING_INDEX");
               break;
-            case "CREATING_INDEX":
+            }
+            case "CREATING_INDEX": {
               console.log(`Status is CREATING_INDEX for ${name}`);
-              await sleep(1000);
+              await randomSleep();
               await updateStatus(name, spec, "ENABLE_DW");
               break;
-            case "ENABLE_DW":
+            }
+            case "ENABLE_DW": {
               console.log(`Status is ENABLE_DW for ${name}`);
-              await sleep(1000);
+              await randomSleep();
               await updateStatus(name, spec, "REINDEXING");
               break;
-            case "REINDEXING":
+            }
+            case "REINDEXING": {
               console.log(`Status is REINDEXING for ${name}`);
-              await sleep(1000);
+              await randomSleep();
               await updateStatus(name, spec, "READ_SWAPPED");
               break;
+            }
             case "READ_SWAPPED":
               console.log(`Status is SWAP_READING for ${name}`);
               await sleep(1000);

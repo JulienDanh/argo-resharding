@@ -1,5 +1,12 @@
 import * as k8s from "@kubernetes/client-node";
 import { ReshardingSpec } from "./types";
+import { handlePending } from "./handlers/pending-handler";
+import { handleCreatingIndex } from "./handlers/creating-index-handler";
+import { handleEnableDw } from "./handlers/enable-dw-handler";
+import { handleReindexing } from "./handlers/reindexing-handler";
+import { handleReadSwapped } from "./handlers/read-swapped-handler";
+import { handleCleanup } from "./handlers/cleanup-handler";
+import { handleUnknownStatus } from "./handlers/unknown-status-handler";
 
 const NAMESPACE = "es-config";
 const GROUP = "front.search.com";
@@ -11,6 +18,7 @@ const kc = new k8s.KubeConfig();
 kc.loadFromCluster();
 
 const customApi = kc.makeApiClient(k8s.CustomObjectsApi);
+const jobsApi = kc.makeApiClient(k8s.BatchV1Api);
 
 interface ReshardingItem {
   metadata: {
@@ -78,70 +86,6 @@ async function updateStatus(
   console.log(`Set status to ${newStatus} for ${name}`);
 }
 
-async function handlePending(
-  name: string,
-  spec: ReshardingSpec,
-): Promise<void> {
-  console.log(`Status is PENDING for ${name}`);
-  await randomSleep();
-  await updateStatus(name, spec, "CREATING_INDEX");
-}
-
-async function handleCreatingIndex(
-  name: string,
-  spec: ReshardingSpec,
-): Promise<void> {
-  console.log(`Status is CREATING_INDEX for ${name}`);
-  await randomSleep();
-  await updateStatus(name, spec, "ENABLE_DW");
-}
-
-async function handleEnableDw(
-  name: string,
-  spec: ReshardingSpec,
-): Promise<void> {
-  console.log(`Status is ENABLE_DW for ${name}`);
-  await randomSleep();
-  await updateStatus(name, spec, "REINDEXING");
-}
-
-async function handleReindexing(
-  name: string,
-  spec: ReshardingSpec,
-): Promise<void> {
-  console.log(`Status is REINDEXING for ${name}`);
-  await randomSleep();
-  await updateStatus(name, spec, "READ_SWAPPED");
-}
-
-async function handleReadSwapped(
-  name: string,
-  spec: ReshardingSpec,
-): Promise<void> {
-  console.log(`Status is READ_SWAPPED for ${name}`);
-  await randomSleep();
-  await updateStatus(name, spec, "CLEANUP");
-}
-
-async function handleCleanup(
-  name: string,
-  spec: ReshardingSpec,
-): Promise<void> {
-  console.log(`Status is CLEANUP for ${name}`);
-  await randomSleep();
-  // Final state - no further status update needed
-}
-
-async function handleUnknownStatus(
-  name: string,
-  spec: ReshardingSpec,
-  currentStep: string,
-): Promise<void> {
-  console.log(`Unknown status: ${currentStep} for ${name}`);
-  await randomSleep();
-  await updateStatus(name, spec, "PENDING");
-}
-
 async function main(): Promise<void> {
   while (true) {
     try {
@@ -159,25 +103,30 @@ async function main(): Promise<void> {
 
           switch (spec.step) {
             case "PENDING":
-              await handlePending(name, spec);
+              await handlePending(name, spec, jobsApi, updateStatus);
               break;
             case "CREATING_INDEX":
-              await handleCreatingIndex(name, spec);
+              await handleCreatingIndex(name, spec, updateStatus);
               break;
             case "ENABLE_DW":
-              await handleEnableDw(name, spec);
+              await handleEnableDw(name, spec, updateStatus);
               break;
             case "REINDEXING":
-              await handleReindexing(name, spec);
+              await handleReindexing(name, spec, updateStatus);
               break;
             case "READ_SWAPPED":
-              await handleReadSwapped(name, spec);
+              await handleReadSwapped(name, spec, updateStatus);
               break;
             case "CLEANUP":
               await handleCleanup(name, spec);
               break;
             default:
-              await handleUnknownStatus(name, spec, spec.step || "undefined");
+              await handleUnknownStatus(
+                name,
+                spec,
+                spec.step || "undefined",
+                updateStatus,
+              );
               break;
           }
         }),
